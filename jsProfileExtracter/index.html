@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+
+<body style="background-color: black"; >
+  <div>
+    <img id="Profile" src="">
+  </div>
+
+  <div id="follower"></div>
+  
+  <p><label style="color: antiquewhite;">Enter the Github user api url </label><input type="text" id="url" /></p>
+
+  <div>
+    <button id="button">Give Data</button>
+  </div>
+
+
+  <script>
+  const requestUrl = 'https://api.github.com/users/Suprit202'
+  
+
+  if (requestUrl === '')
+  {
+    alert('Please enter the url')
+  }
+  else{
+    const xhr = new XMLHttpRequest();
+  xhr.open('GET',requestUrl)
+  let imgUrl = '';
+  let data = '';
+  let follow = '';
+// '';
+  xhr.onreadystatechange = function(){
+      // console.log(xhr.readyState);
+      if (xhr.readyState === 4)
+      {
+        data = JSON.parse(this.responseText)
+        imgUrl = data.avatar_url;
+        follow = data.followers;
+      }
+    } 
+  xhr.send()
+  const getData = function () {
+    document.querySelector("#Profile").src = imgUrl;
+    document.querySelector("#follower").innerHTML = `<span style="color: white;">Followers: ${follow}</span>`;
+  }
+  document.querySelector("#button").addEventListener('click',getData)
+  }
+
+  </script>
+</body>
+</html>
